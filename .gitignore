@@ -1,0 +1,16 @@
+# In your ddos root folder, create .gitignore with this content:
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+Back/.env
+Front/.env*
+node_modules/
+*/node_modules/
+build/
+dist/
+*.log
+.DS_Store
+.vscode/
+.idea/
