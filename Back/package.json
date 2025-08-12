@@ -1,0 +1,21 @@
+{
+  "name": "ddos-attack-map-backend",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Backend server for DDoS attack map visualization",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^4.18.2",
+    "socket.io": "^4.7.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
