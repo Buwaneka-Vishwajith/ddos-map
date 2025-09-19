@@ -8,11 +8,11 @@ const GlobeVisualization = ({ attacks }) => {
   const processedIds = useRef(new Set());
   const isInitialized = useRef(false);
 
-  // Initialize globe only once
+  //globe
   useEffect(() => {
     if (!mountRef.current || isInitialized.current) return;
 
-    // Initialize globe with enhanced settings
+    // glb settings
     const globe = Globe()
       (mountRef.current)
       .globeImageUrl('//unpkg.com/three-globe/example/img/earth-night.jpg')
@@ -27,12 +27,12 @@ const GlobeVisualization = ({ attacks }) => {
     globeEl.current = globe;
     isInitialized.current = true;
 
-    // Enhanced controls
+    
     globe.controls().autoRotate = true;
     globe.controls().autoRotateSpeed = 0.35;
     globe.controls().enableZoom = true;
 
-    // Set up arc styling once
+    //arcs
     globe
       .arcColor(d => d.color)
       .arcAltitude(d => d.altitude)
@@ -53,16 +53,16 @@ const GlobeVisualization = ({ attacks }) => {
     };
   }, []);
 
-  // Handle new attacks incrementally
+  //new attacks
   useEffect(() => {
     if (!attacks.length || !globeEl.current) return;
 
-    // Find new attacks that haven't been processed
+    // Find new attacks
     const newAttacks = attacks.filter(attack => !processedIds.current.has(attack.id));
     
     if (newAttacks.length === 0) return;
 
-    // Convert new attacks to arc data with persistent properties
+    // new attacks to arcs
     const newArcs = newAttacks.map((attack, index) => {
       const arcData = {
         startLat: attack.sourceLat,
@@ -76,7 +76,7 @@ const GlobeVisualization = ({ attacks }) => {
         timestamp: Date.now()
       };
       
-      // Mark as processed
+     
       processedIds.current.add(attack.id);
       return arcData;
     });
@@ -85,13 +85,13 @@ const GlobeVisualization = ({ attacks }) => {
     setAllArcs(prevArcs => {
       const updatedArcs = [...prevArcs, ...newArcs];
       
-      // Optional: Remove old arcs after a certain time to prevent memory buildup
+      //Remove old arcs after 5 secs
       const currentTime = Date.now();
       const filteredArcs = updatedArcs.filter(arc => 
         currentTime - arc.timestamp < 300000 // Keep arcs for 5 minutes
       );
       
-      // Update globe with all arcs
+      // Update globe
       globeEl.current.arcsData(filteredArcs);
       
       return filteredArcs;
