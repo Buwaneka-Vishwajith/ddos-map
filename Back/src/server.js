@@ -18,20 +18,20 @@ const io = new Server(server, {
 
 const PORT = process.env.PORT || 3001;
 
-// Middleware
+
 app.use(cors());
 app.use(express.json());
 
-// Initialize services
+
 const attackGenerator = new AttackGenerator();
 const dataService = new DataService();
 
-// Basic health check endpoint
+
 app.get('/health', (req, res) => {
   res.json({ status: 'Server is running', timestamp: new Date().toISOString() });
 });
 
-// Socket.io connection handling
+// Socket.io connection
 io.on('connection', (socket) => {
   console.log(`Client connected: ${socket.id}`);
   
