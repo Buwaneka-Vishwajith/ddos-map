@@ -88,7 +88,7 @@ const GlobeVisualization = ({ attacks }) => {
       //Remove old arcs after 5 secs
       const currentTime = Date.now();
       const filteredArcs = updatedArcs.filter(arc => 
-        currentTime - arc.timestamp < 300000 // Keep arcs for 5 minutes
+        currentTime - arc.timestamp < 300000 // Keep arcs for 5 
       );
       
       // Update globe
